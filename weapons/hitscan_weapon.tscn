@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://k63k22csi4q0"]
+
+[ext_resource type="Script" uid="uid://cj437kt3mj6vs" path="res://weapons/hitscan_weapon.gd" id="1_24x21"]
+
+[node name="HitscanWeapon" type="Node3D"]
+script = ExtResource("1_24x21")
+
+[node name="CooldownTimer" type="Timer" parent="."]
+one_shot = true
