@@ -1,11 +1,14 @@
 extends Control
 
+@export var dot: bool = false
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _draw() -> void:
+	if dot: 
+		draw_circle(Vector2.ZERO, 4, Color.DIM_GRAY)
+		draw_circle(Vector2.ZERO, 3, Color.WHITE)
+	
+	draw_line(Vector2(16, 0), Vector2(24, 0), Color.WHITE, 2)
+	draw_line(Vector2(-16, 0), Vector2(-24, 0), Color.WHITE, 2)
+	
+	draw_line(Vector2(0, 16), Vector2(0, 24), Color.WHITE, 2)
+	draw_line(Vector2(0, -16), Vector2(0, -24), Color.WHITE, 2)
