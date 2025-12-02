@@ -1,12 +1,18 @@
-extends CharacterBody3D
-
+class_name Player extends CharacterBody3D
 
 const SPEED = 5.0
 
 @export var jump_height := 1.0
 @export var fall_multiplayer := 2.5
+@export var max_hitpoints := 100
 
 var mouse_motion := Vector2.ZERO
+
+var hitpoints: int = max_hitpoints:
+	set(value):
+		hitpoints = value
+		if hitpoints <= 0:
+			get_tree().quit()
 
 @onready var camera_pivot: Node3D = $CameraPivot
 
