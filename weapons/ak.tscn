@@ -1,0 +1,58 @@
+[gd_scene load_steps=8 format=3 uid="uid://df64gts2kgmye"]
+
+[ext_resource type="PackedScene" uid="uid://k63k22csi4q0" path="res://weapons/hitscan_weapon.tscn" id="1_i3sr7"]
+[ext_resource type="PackedScene" uid="uid://dy61ep7h1rusy" path="res://weapons/AK.glb" id="2_i3sr7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6vhuu"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="Curve" id="Curve_6vhuu"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_10eae"]
+curve = SubResource("Curve_6vhuu")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_78b3n"]
+direction = Vector3(0, 0, -1)
+spread = 8.0
+initial_velocity_min = 6.0
+initial_velocity_max = 8.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_10eae")
+
+[sub_resource type="BoxMesh" id="BoxMesh_63o05"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="Ak" node_paths=PackedStringArray("weapon_mesh", "muzzle_flash") instance=ExtResource("1_i3sr7")]
+fire_rate = 8
+weapon_damage = 30
+recoil = 0.5
+weapon_mesh = NodePath("AK")
+muzzle_flash = NodePath("MuzzleFlash")
+automatic = true
+
+[node name="MuzzleFlash" type="GPUParticles3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, -0.33909762, -3.2)
+layers = 2
+material_override = SubResource("StandardMaterial3D_6vhuu")
+cast_shadow = 0
+emitting = false
+lifetime = 0.06999999999999999
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_78b3n")
+draw_pass_1 = SubResource("BoxMesh_63o05")
+
+[node name="AK" parent="." index="3" instance=ExtResource("2_i3sr7")]
+transform = Transform3D(-2.1855694e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.1855694e-08, 0.7, -0.6528188, -1.2771262)
+
+[node name="AssaultRifle_2" parent="AK" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.041425228, 0)
+layers = 2
+
+[editable path="AK"]
