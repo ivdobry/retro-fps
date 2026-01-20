@@ -1,0 +1,57 @@
+[gd_resource type="VisualShader" load_steps=5 format=3 uid="uid://d2fhag67i2mw3"]
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_hrff0"]
+source = 5
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_cd6wq"]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_2l5g0"]
+constant = 2.0
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_qj3nc"]
+parameter_name = "Screen"
+texture_type = 1
+texture_filter = 4
+texture_source = 1
+
+[resource]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+uniform sampler2D Screen : source_color, filter_linear_mipmap, hint_screen_texture;
+
+
+
+void vertex() {
+// Input:3
+	vec2 n_out3p0 = UV;
+
+
+// FloatConstant:4
+	float n_out4p0 = 2.000000;
+
+
+	vec4 n_out2p0;
+// Texture2D:2
+	n_out2p0 = textureLod(Screen, n_out3p0, n_out4p0);
+
+
+// Output:0
+	COLOR.rgb = vec3(n_out2p0.xyz);
+
+
+}
+"
+mode = 1
+flags/light_only = false
+nodes/vertex/0/position = Vector2(420, 120)
+nodes/vertex/2/node = SubResource("VisualShaderNodeTexture_hrff0")
+nodes/vertex/2/position = Vector2(-20, 120)
+nodes/vertex/3/node = SubResource("VisualShaderNodeInput_cd6wq")
+nodes/vertex/3/position = Vector2(-400, 40)
+nodes/vertex/4/node = SubResource("VisualShaderNodeFloatConstant_2l5g0")
+nodes/vertex/4/position = Vector2(-380, 160)
+nodes/vertex/5/node = SubResource("VisualShaderNodeTexture2DParameter_qj3nc")
+nodes/vertex/5/position = Vector2(-480, 280)
+nodes/vertex/connections = PackedInt32Array(2, 0, 0, 2, 3, 0, 2, 0, 4, 0, 2, 1, 5, 0, 2, 2)
