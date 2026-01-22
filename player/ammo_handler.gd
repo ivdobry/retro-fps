@@ -8,9 +8,14 @@ enum ammo_type {
 	SMALL_BULLET
 }
 
-var ammo_storage := {
+var max_ammo := {
 	ammo_type.BULLET: 10,
 	ammo_type.SMALL_BULLET: 30
+}
+
+var ammo_storage := {
+	ammo_type.BULLET: max_ammo[ammo_type.BULLET],
+	ammo_type.SMALL_BULLET: max_ammo[ammo_type.SMALL_BULLET]
 }
 
 func has_ammo(type: ammo_type) -> bool:
@@ -22,4 +27,4 @@ func use_ammo(type: ammo_type) -> void:
 		update_ammo_label(type)
 	
 func update_ammo_label(type: ammo_type) -> void:
-	ammo_label.text = str(ammo_storage[type])
+	ammo_label.text = str(ammo_storage[type]) + " / " + str(max_ammo[type])
