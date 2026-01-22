@@ -7,6 +7,8 @@ extends Node3D
 @export var muzzle_flash: GPUParticles3D
 @export var sparks: PackedScene
 @export var automatic: bool
+@export var ammo_handler: AmmoHandler
+@export var ammo_type: AmmoHandler.ammo_type
 
 @onready var cooldown_timer: Timer = $CooldownTimer
 @onready var weapon_position: Vector3 = weapon_mesh.position
@@ -26,6 +28,9 @@ func _process(delta: float) -> void:
 	weapon_mesh.position = weapon_mesh.position.lerp(weapon_position, delta * 10.0)
 
 func shoot() -> void:
+	if (!ammo_handler.has_ammo(ammo_type)):
+		return
+	ammo_handler.use_ammo(ammo_type)
 	muzzle_flash.restart()
 	cooldown_timer.start(1.0 / fire_rate)
 	var collider = ray_cast_3d.get_collider()
