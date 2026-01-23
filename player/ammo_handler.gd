@@ -27,9 +27,7 @@ func use_ammo(type: ammo_type) -> void:
 		update_ammo_label(type)
 		
 func add_ammo(type: ammo_type, amount: int) -> void:
-	ammo_storage[type] += amount
-	if ammo_storage[type] > max_ammo[type]:
-		ammo_storage[type] = max_ammo[type]
+	ammo_storage[type] = clamp(ammo_storage[type] + amount, 0 ,max_ammo[type])
 	update_ammo_label(type)
 	
 func update_ammo_label(type: ammo_type) -> void:
