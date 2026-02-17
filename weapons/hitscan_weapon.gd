@@ -34,8 +34,10 @@ func shoot() -> void:
 	muzzle_flash.restart()
 	cooldown_timer.start(1.0 / fire_rate)
 	var collider = ray_cast_3d.get_collider()
-	print(ray_cast_3d.get_collider())
 	weapon_mesh.position.z += recoil
+	if !ray_cast_3d.is_colliding():
+		return
+		
 	if collider is Enemy:
 		collider.hitpoints -= weapon_damage
 		
